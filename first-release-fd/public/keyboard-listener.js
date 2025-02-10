@@ -13,15 +13,15 @@ export default function createKeyboardListener(document) {
   }
 
   function unsubscribe(observerFunction) {
-    const observerIndex = observers.indexOf(observerFunction)
+    const observerIndex = state.observers.indexOf(observerFunction)
 
     if (observerIndex == -1) return
 
-    observers.splice(observerIndex, 1)
+    state.observers.splice(observerIndex, 1)
   }
 
   function unsubscribeAll() {
-    observers.length = 0
+    state.observers.length = 0
   }
 
   function notifyAll(command) {
