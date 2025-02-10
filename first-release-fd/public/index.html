@@ -5,18 +5,30 @@
   <title>Meu Primeiro Jogo Multiplayer</title>
   <style>
     #screen {
-      border: 10px solid #ccc;
+      border: 5px solid #ccc;
       image-rendering: pixelated;
       image-rendering: crisp-edges;
       image-rendering: -moz-crisp-edges;
       width: 400px;
       height: 400px;
     }
+
+    div {
+      max-width: max-content;
+      margin: 0 auto;
+    }
+
+    .current-player {
+      color: #F0DB4F;
+    }
   </style>
   <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
-  <canvas id="screen" width="10" height="10"></canvas>
+  <div>
+    <canvas id="screen" width="20" height="20"></canvas>
+    <table id="leader-board"></table>
+  </div>
 
   <script type="module">
     import createGame from './game.js'
@@ -30,7 +42,8 @@
     socket.on('connect', () => {
       const playerId = socket.id
       const screen = document.getElementById('screen')
-      renderScreen(screen, game, requestAnimationFrame, playerId)
+      const leaderBoard = document.getElementById('leader-board')
+      renderScreen(screen, leaderBoard, game, requestAnimationFrame, playerId)
     })
 
     socket.on('disconnect', () => {

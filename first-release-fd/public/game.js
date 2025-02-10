@@ -3,8 +3,8 @@ export default function createGame() {
     players: {},
     fruits: {},
     screen: {
-      width: 10,
-      height: 10
+      width: 20,
+      height: 20
     }
   }
 
@@ -49,14 +49,16 @@ export default function createGame() {
 
     state.players[playerId] = {
       x: playerX,
-      y: playerY
+      y: playerY,
+      points: 0
     }
 
     notifyAll({
       type: 'add-player',
       playerId,
       playerX,
-      playerY
+      playerY,
+      points: 0
     })
   }
 
@@ -97,7 +99,6 @@ export default function createGame() {
   }
 
   function movePlayer(command) {
-    console.log('notificando', command)
     notifyAll(command)
 
     const acceptedMoves = {
@@ -137,6 +138,7 @@ export default function createGame() {
 
         if (player.x == fruit.x && player.y == fruit.y) {
           removeFruit(fruitId)
+          state.players[command.playerId].points += 1
         }
       }
     }
